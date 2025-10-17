@@ -42,7 +42,7 @@ jobs:
           $rawPassword = @()
           $rawPassword += $charSet.Upper | Get-Random -Count 1
           $rawPassword += $charSet.Lower | Get-Random -Count 1
-          $rawPassword += $charSet.Number | Get-Random -Count 3
+          $rawPassword += $charSet.Number | Get-Random -Count 1
           $rawPassword += $charSet.Special | Get-Random -Count 1
           $password = -join ($rawPassword | Sort-Object { Get-Random })
           $securePass = ConvertTo-SecureString $password -AsPlainText -Force
