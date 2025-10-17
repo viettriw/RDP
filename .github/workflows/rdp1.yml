@@ -33,18 +33,15 @@ jobs:
         run: |
           Add-Type -AssemblyName System.Security
           $charSet = @{
-              Upper   = [char[]](65..90)      # A-Z
-              Lower   = [char[]](97..122)     # a-z
-              Number  = [char[]](48..57)      # 0-9
-              Special = ([char[]](33..47) + [char[]](58..64) +
-                         [char[]](91..96) + [char[]](123..126)) # Special characters
-          }
-          $rawPassword = @()
-          $rawPassword += $charSet.Upper | Get-Random -Count 1
-          $rawPassword += $charSet.Lower | Get-Random -Count 1
-          $rawPassword += $charSet.Number | Get-Random -Count 1
-          $rawPassword += $charSet.Special | Get-Random -Count 1
-          $password = -join ($rawPassword | Sort-Object { Get-Random })
+            $charSet += [char[]](65..90)      # A-Z
+            $charSet += [char[]](97..122)     # a-z
+            $charSet += [char[]](48..57)      # 0-9
+         # Generar una contraseña de 8 caracteres aleatorios del conjunto definido.             }
+          
+          $rawPassword = $charSet | Get-Random -Count 8
+          $password = -join $rawPassword
+          # Configurar y crear el usuario
+          
           $securePass = ConvertTo-SecureString $password -AsPlainText -Force
           New-LocalUser -Name "RDP1" -Password $securePass -AccountNeverExpires
           Add-LocalGroupMember -Group "Administrators" -Member "RDP1"
@@ -108,6 +105,12 @@ jobs:
           
           # Keep runner active indefinitely (or until manually cancelled)
           while ($true) {
+
+          Write-Host "[$)Get-Date)] RDP1 Active - use Ctrl+c in workflow to terminate"
+          Start-Sleep -Seconds 1800
+          }
+
+          
               Write-Host "[$(Get-Date)] RDP Active - Use Ctrl+C in workflow to terminate"
               Start-Sleep -Seconds 1800
           }
