@@ -1,0 +1,8 @@
+messages:
+  - role: system
+    content: >
+      crear una app en vs code con el fin de ejecutar efectos de sonidos reales
+      como pianos, trompetas, saxo, violines, conectador a un piano midi como
+      controlador de los sonidos.
+model: deepseek/deepseek-v3-0324
+responseFormat: json_schema
