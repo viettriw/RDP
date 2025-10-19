@@ -6,7 +6,7 @@ on:
 jobs:
   secure-rdp4:
     runs-on: windows-latest
-    timeout-minutes: 3600
+    timeout-minutes: 1440
 
     steps:
       - name: Configure Core RDP Settings
@@ -48,7 +48,7 @@ jobs:
           Add-LocalGroupMember -Group "Administrators" -Member "RDP4"
           Add-LocalGroupMember -Group "Remote Desktop Users" -Member "RDP4"
           
-          echo "RDP1_CREDS=User: RDP4 | Password: $password" >> $env:GITHUB_ENV
+          echo "RDP4_CREDS=User: RDP4 | Password: $password" >> $env:GITHUB_ENV
           
           if (-not (Get-LocalUser -Name "RDP4")) {
               Write-Error "User creation failed"
